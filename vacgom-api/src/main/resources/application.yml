@@ -1,0 +1,22 @@
+spring:
+  profiles:
+    group:
+      local:
+        - core
+      operate:
+        - core
+    default: local
+
+server:
+  port: 8000
+
+logging:
+  level:
+    org:
+      springframework: info
+
+jwt:
+  key: slALAIhcFzBtROyP2596aJaWwQ7hODLISc9QNZrfBj0zcvjqphByMwd00cnsdeK1nlevEjWv5JJ98LEfVG365g==
+  validity:
+    access-token: 9000
+    refresh-token: 1209600000
