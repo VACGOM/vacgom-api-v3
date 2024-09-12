@@ -1,6 +1,5 @@
 package kr.co.vacgom
 
-import kr.co.vacgom.domain.Temp
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.runApplication

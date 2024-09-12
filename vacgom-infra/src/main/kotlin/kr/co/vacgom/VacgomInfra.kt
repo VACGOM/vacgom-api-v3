@@ -6,8 +6,8 @@ import org.springframework.boot.runApplication
 
 @SpringBootApplication
 @ConfigurationPropertiesScan
-class VacgomApi
+class VacgomInfra
 
 fun main(args: Array<String>) {
-    runApplication<VacgomApi>(*args)
+    runApplication<VacgomInfra>(*args)
 }
