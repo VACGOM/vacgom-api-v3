@@ -1,3 +1,8 @@
-server:
-  port:
-    8000
+spring:
+  profiles:
+    group:
+      dev:
+        - dev
+      real:
+        - operate
+    default: dev
