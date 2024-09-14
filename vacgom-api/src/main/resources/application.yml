@@ -6,3 +6,6 @@ spring:
       operate:
         - core
     default: local
+
+server:
+  port: 8000
