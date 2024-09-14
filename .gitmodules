@@ -1,0 +1,3 @@
+[submodule "vacgom-core/CORE-CONFIG"]
+	path = vacgom-core/CORE-CONFIG
+	url = git@github.com:VACGOM/vacgom-api-v3-core-config.git
