@@ -1,8 +1,8 @@
 spring:
   profiles:
     group:
-      dev:
-        - dev
-      real:
-        - operate
-    default: dev
+      local:
+        - core
+      operate:
+        - core
+    default: local

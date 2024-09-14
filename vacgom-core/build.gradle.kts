@@ -26,3 +26,24 @@ tasks.bootJar {
 tasks.jar {
     enabled = true
 }
+
+// resources 디렉토리 삭제 작업
+tasks.register<Delete>("cleanResources") {
+    delete(file("src/main/resources"))
+}
+
+tasks.register<Copy>("initCoreConfig") {
+    dependsOn("cleanResources")
+
+    from("CORE-CONFIG")
+    include("*.yml")
+
+    into("src/main/resources")
+    doFirst {
+        file("src/main/resources").mkdirs()
+    }
+}
+
+tasks.processResources {
+    dependsOn("initCoreConfig")
+}
