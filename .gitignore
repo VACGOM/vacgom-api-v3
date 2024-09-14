@@ -1,6 +1,7 @@
 ### CUSTOM ###
 .DS_Store
 .vscode
+**/resources/
 
 
 ### DEFAULT ###
