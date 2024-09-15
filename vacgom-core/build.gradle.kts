@@ -1,5 +1,7 @@
 plugins {
     id("java")
+    id("io.freefair.lombok") version "8.10"
+    kotlin("plugin.lombok") version "2.0.20"
 }
 
 group = "kr.co.vacgom"
@@ -11,7 +13,6 @@ repositories {
 
 dependencies {
     implementation("org.postgresql:postgresql")
-    implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 }
 
