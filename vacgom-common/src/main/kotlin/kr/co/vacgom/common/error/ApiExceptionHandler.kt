@@ -21,22 +21,39 @@ class ApiExceptionHandler(
     ): ResponseEntity<CommonErrorResponse> {
         val fieldError: FieldError = notValidException.bindingResult.fieldErrors
             .firstOrNull() ?: throw BusinessException(GlobalError.INVALID_REQUEST_PARAM)
+        val errorMessage = fieldError.defaultMessage ?: "Invalid input"
 
         val errorResponse = CommonErrorResponse(
             GlobalError.INVALID_REQUEST_PARAM,
-            fieldError.defaultMessage ?: "Invalid input"
+            errorMessage
         )
 
-        return ResponseEntity.badRequest().body(errorResponse)
+        log.error(
+            "[NotValidException] ({} - {}) | \n{}",
+            GlobalError.INVALID_REQUEST_PARAM.code,
+            GlobalError.INVALID_REQUEST_PARAM.message,
+            errorMessage
+        )
+
+        return ResponseEntity
+            .badRequest()
+            .body(errorResponse)
     }
 
     @ExceptionHandler(BusinessException::class)
     fun handleBusinessException(
         businessException: BusinessException
     ): ResponseEntity<CommonErrorResponse> {
-        businessException.logging()
 
         val errorEntity = businessException.errorEntity
+
+        log.error(
+            "[BusinessException] ({} - {}) | \n{}",
+            errorEntity.code,
+            errorEntity.message,
+            businessException.message
+        )
+
         return ResponseEntity
             .status(errorEntity.httpStatus)
             .body(CommonErrorResponse(errorEntity))
