@@ -8,30 +8,21 @@ plugins {
     id("io.spring.dependency-management") version "1.1.6"
 }
 
-
-tasks.withType<BootJar> {
-    enabled = false
-}
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_21
-}
-
 allprojects {
     group = "kr.co.vacgom"
     version = "0.0.1"
     repositories { mavenCentral() }
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+}
+
 subprojects {
     apply(plugin = "org.jetbrains.kotlin.jvm")
-    apply(plugin = "org.jetbrains.kotlin.plugin.spring")
     apply(plugin = "org.springframework.boot")
+    apply(plugin = "org.jetbrains.kotlin.plugin.spring")
     apply(plugin = "io.spring.dependency-management")
-
-    dependencies {
-        implementation("org.springframework.boot:spring-boot-starter-web")
-    }
 
     tasks.withType<KotlinCompile> {
         kotlinOptions {
@@ -45,16 +36,17 @@ subprojects {
         targetCompatibility = JavaVersion.VERSION_21.toString()
     }
 
-    tasks.withType<Test> {
-        useJUnitPlatform()
-    }
-
     dependencies {
         implementation("org.springframework.boot:spring-boot-starter-web")
-        implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-        implementation("org.jetbrains.kotlin:kotlin-reflect")
-        testImplementation("org.springframework.boot:spring-boot-starter-test")
-        testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
-        testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+//        implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+//        implementation("org.jetbrains.kotlin:kotlin-reflect")
     }
+}
+
+tasks.withType<BootJar> {
+    enabled = false
+}
+
+tasks.withType<Jar> {
+    enabled = false
 }

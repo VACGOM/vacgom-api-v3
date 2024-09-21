@@ -1,38 +1,25 @@
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
 plugins {
-    id("java")
     id("io.freefair.lombok") version "8.10"
     kotlin("plugin.lombok") version "2.0.20"
 }
 
 dependencies {
     implementation(project(":vacgom-common"))
-}
-
-group = "kr.co.vacgom"
-version = "0.0.1"
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
     implementation("org.postgresql:postgresql")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
 
-tasks.bootJar {
+tasks.withType<BootJar> {
     enabled = false
 }
 
-tasks.jar {
+tasks.withType<Jar> {
     enabled = true
 }
 
-// resources 디렉토리 삭제 작업
 tasks.register<Delete>("cleanResources") {
     delete(file("src/main/resources"))
 }
