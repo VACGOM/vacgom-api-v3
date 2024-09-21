@@ -1,4 +1,4 @@
-package kr.co.vacgom.error
+package kr.co.vacgom.common.error
 
 import org.slf4j.LoggerFactory
 import java.time.LocalDateTime
@@ -8,6 +8,7 @@ class BusinessException(
 ) : RuntimeException(errorEntity.message) {
 
     private val log = LoggerFactory.getLogger(BusinessException::class.java)
+
 
     fun logging() {
         log.error(

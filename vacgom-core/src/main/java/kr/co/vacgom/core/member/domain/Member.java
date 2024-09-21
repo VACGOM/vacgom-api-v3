@@ -1,4 +1,4 @@
-package kr.co.vacgom.member.domain;
+package kr.co.vacgom.core.member.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

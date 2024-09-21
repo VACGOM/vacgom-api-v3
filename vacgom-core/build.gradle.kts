@@ -4,6 +4,10 @@ plugins {
     kotlin("plugin.lombok") version "2.0.20"
 }
 
+dependencies {
+    implementation(project(":vacgom-common"))
+}
+
 group = "kr.co.vacgom"
 version = "0.0.1"
 

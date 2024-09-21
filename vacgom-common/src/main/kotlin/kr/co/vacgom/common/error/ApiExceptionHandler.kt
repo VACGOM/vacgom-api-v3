@@ -1,4 +1,4 @@
-package kr.co.vacgom.error
+package kr.co.vacgom.common.error
 
 import org.slf4j.Logger
 import org.springframework.http.HttpStatus
