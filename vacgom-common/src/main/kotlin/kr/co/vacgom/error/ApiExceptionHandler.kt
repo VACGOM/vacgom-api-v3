@@ -1,6 +1,6 @@
 package kr.co.vacgom.error
 
-import org.slf4j.LoggerFactory
+import org.slf4j.Logger
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.FieldError
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
 @RestControllerAdvice
-class ApiExceptionHandler {
-
-    private val log = LoggerFactory.getLogger(ApiExceptionHandler::class.java)
+class ApiExceptionHandler(
+    private val log: Logger
+) {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException::class)
@@ -31,10 +31,14 @@ class ApiExceptionHandler {
     }
 
     @ExceptionHandler(BusinessException::class)
-    fun handleBusinessException(businessException: BusinessException): ResponseEntity<CommonErrorResponse> {
+    fun handleBusinessException(
+        businessException: BusinessException
+    ): ResponseEntity<CommonErrorResponse> {
         businessException.logging()
 
         val errorEntity = businessException.errorEntity
-        return ResponseEntity.status(errorEntity.httpStatus).body(CommonErrorResponse(errorEntity))
+        return ResponseEntity
+            .status(errorEntity.httpStatus)
+            .body(CommonErrorResponse(errorEntity))
     }
 }

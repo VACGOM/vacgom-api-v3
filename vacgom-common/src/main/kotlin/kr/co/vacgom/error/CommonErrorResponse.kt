@@ -12,7 +12,10 @@ data class CommonErrorResponse(
         errorMessage = errorEntity.message
     )
 
-    constructor(errorEntity: ErrorEntity, errorMessage: String) : this(
+    constructor(
+        errorEntity: ErrorEntity,
+        errorMessage: String
+    ) : this(
         errorCode = errorEntity.code,
         errorMessage = errorMessage
     )
