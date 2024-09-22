@@ -1,8 +1,10 @@
 package kr.co.vacgom.core.member.domain;
 
+import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import kr.co.vacgom.core.global.domain.BaseEntity;
+import kr.co.vacgom.core.member.domain.constants.GrantedAuthorityRole;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +20,10 @@ public class Member extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
+
+    @Nonnull
+    @Enumerated(EnumType.STRING)
+    private GrantedAuthorityRole role;
 
     @Nullable
     private Boolean isMaster;
