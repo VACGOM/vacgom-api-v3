@@ -1,4 +1,4 @@
-package kr.co.vacgom.common.config
+package kr.co.vacgom.config
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

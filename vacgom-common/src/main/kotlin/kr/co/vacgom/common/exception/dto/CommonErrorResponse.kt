@@ -1,5 +1,6 @@
-package kr.co.vacgom.common.error
+package kr.co.vacgom.common.exception.dto
 
+import kr.co.vacgom.common.error.ErrorEntity
 import java.time.LocalDateTime
 
 data class CommonErrorResponse(

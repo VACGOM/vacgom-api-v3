@@ -1,5 +1,6 @@
 package kr.co.vacgom.core.member.domain;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import kr.co.vacgom.core.global.domain.BaseEntity;
 import lombok.AccessLevel;
@@ -13,9 +14,11 @@ import lombok.NoArgsConstructor;
 public class Member extends BaseEntity {
 
     @Id
+    @Nullable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
 
+    @Nullable
     private Boolean isMaster;
 }
