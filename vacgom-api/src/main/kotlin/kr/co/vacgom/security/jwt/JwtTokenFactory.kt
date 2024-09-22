@@ -4,6 +4,7 @@ import io.jsonwebtoken.*
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
 import kr.co.vacgom.common.exception.BusinessException
+import kr.co.vacgom.core.member.application.MemberService
 import kr.co.vacgom.core.member.domain.Member
 import kr.co.vacgom.core.member.domain.constants.GrantedAuthorityRole
 import kr.co.vacgom.security.error.AuthError
@@ -22,7 +23,9 @@ class JwtTokenFactory(
     private val rawSecretKey: String,
 
     @Value("\${jwt.validity.access-token}")
-    private val accessTokenValidity: Long
+    private val accessTokenValidity: Long,
+
+    private val memberService: MemberService
 ) {
     private val decodedSecretKey: SecretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(rawSecretKey))
 
@@ -45,14 +48,17 @@ class JwtTokenFactory(
         token: String
     ): PreAuthenticatedAuthenticationToken {
         val verifiedClaims = getVerifiedTokenClaims(token)
-        val memberId = verifiedClaims[RegisteredClaimConstants.ID.subject].toString()
+        val longMemberId = verifiedClaims[RegisteredClaimConstants.ID.subject]?.toString()?.toLong()!!
+        val stringMemberId = verifiedClaims[RegisteredClaimConstants.ID.subject]?.toString()
         val role = verifiedClaims[RegisteredClaimConstants.ROLE.subject].toString()
 
+        validateUserId(longMemberId)
         validateUserRole(role)
+        
         val authorities = listOf(SimpleGrantedAuthority(role))
 
         val user = User.builder()
-            .username(memberId)
+            .username(stringMemberId)
             .authorities(authorities)
             .build()
 
@@ -90,6 +96,12 @@ class JwtTokenFactory(
     private fun validateUserRole(role: String) {
         if (GrantedAuthorityRole.entries.toTypedArray().none { it.name == role }) {
             throw BusinessException(AuthError.UNKNOWN_CLAIM_CONSTANTS)
+        }
+    }
+
+    private fun validateUserId(memberId: Long) {
+        if (memberService.istValidMember(memberId)) {
+            throw BusinessException(AuthError.INVALID_USER_ID)
         }
     }
 }
