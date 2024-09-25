@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus
 
 enum class MemberError(
     override val message: String,
-    override val httpStatus: HttpStatus,
+    override val httpStatus: Int,
     override val code: String
 ) : ErrorEntity {
-    MEMBER_NOT_FOUND("해당 유저를 찾을 수 없습니다.", HttpStatus.NOT_FOUND, "MBR_001")
+    MEMBER_NOT_FOUND("해당 유저를 찾을 수 없습니다.", HttpStatus.NOT_FOUND.value(), "MBR_001")
 }
