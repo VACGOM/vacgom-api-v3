@@ -1,4 +1,4 @@
-package kr.co.vacgom.security.jwt.constants
+package kr.co.vacgom.core.global.security.jwt.constants
 
 enum class RegisteredClaimConstants(
     val subject: String

@@ -1,4 +1,4 @@
-package kr.co.vacgom.common.error
+package kr.co.vacgom.common.error.entity
 
 enum class GlobalError(
     override val message: String,

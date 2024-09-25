@@ -1,8 +1,8 @@
-package kr.co.vacgom.handler
+package kr.co.vacgom.core.global.handler
 
-import kr.co.vacgom.common.error.GlobalError
-import kr.co.vacgom.common.exception.BusinessException
-import kr.co.vacgom.common.exception.dto.CommonErrorResponse
+import kr.co.vacgom.common.error.dto.CommonErrorResponse
+import kr.co.vacgom.common.error.entity.GlobalError
+import kr.co.vacgom.common.error.exception.BusinessException
 import org.slf4j.Logger
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

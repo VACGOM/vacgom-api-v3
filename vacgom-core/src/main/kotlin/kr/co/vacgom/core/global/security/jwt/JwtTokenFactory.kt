@@ -1,14 +1,14 @@
-package kr.co.vacgom.security.jwt
+package kr.co.vacgom.core.global.security.jwt
 
 import io.jsonwebtoken.*
 import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
-import kr.co.vacgom.common.exception.BusinessException
+import kr.co.vacgom.common.error.exception.BusinessException
+import kr.co.vacgom.core.global.security.error.AuthError
+import kr.co.vacgom.core.global.security.jwt.constants.RegisteredClaimConstants
 import kr.co.vacgom.core.member.application.MemberService
 import kr.co.vacgom.core.member.domain.Member
 import kr.co.vacgom.core.member.domain.constants.GrantedAuthorityRole
-import kr.co.vacgom.security.error.AuthError
-import kr.co.vacgom.security.jwt.constants.RegisteredClaimConstants
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.User
@@ -54,7 +54,7 @@ class JwtTokenFactory(
 
         validateUserId(longMemberId)
         validateUserRole(role)
-        
+
         val authorities = listOf(SimpleGrantedAuthority(role))
 
         val user = User.builder()

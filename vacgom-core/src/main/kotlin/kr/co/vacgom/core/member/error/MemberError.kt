@@ -1,6 +1,6 @@
 package kr.co.vacgom.core.member.error
 
-import kr.co.vacgom.common.error.ErrorEntity
+import kr.co.vacgom.common.error.entity.ErrorEntity
 import org.springframework.http.HttpStatus
 
 enum class MemberError(

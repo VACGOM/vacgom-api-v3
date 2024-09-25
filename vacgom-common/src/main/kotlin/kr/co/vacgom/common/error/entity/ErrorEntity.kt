@@ -1,4 +1,4 @@
-package kr.co.vacgom.common.error
+package kr.co.vacgom.common.error.entity
 
 interface ErrorEntity {
     val code: String
