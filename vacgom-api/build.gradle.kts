@@ -1,8 +1,4 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    kotlin("jvm") version "2.0.20"
     kotlin("plugin.spring") version "1.9.25"
     id("org.springframework.boot") version "3.3.3"
     id("io.spring.dependency-management") version "1.1.6"
@@ -16,18 +12,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
 }
 
-tasks.withType<KotlinCompile> {
-    compilerOptions {
-        freeCompilerArgs.add("-Xjsr305=strict")
-        jvmTarget.set(JvmTarget.JVM_21)
-    }
-}
-
-tasks.withType<JavaCompile> {
-    sourceCompatibility = JavaVersion.VERSION_21.toString()
-    targetCompatibility = JavaVersion.VERSION_21.toString()
-}
-
 tasks.register<Delete>("cleanResources") {
     delete(file("src/main/resources"))
 }
@@ -36,7 +20,7 @@ tasks.register<Copy>("initApiConfig") {
     dependsOn("cleanResources")
 
     from("API-CONFIG")
-    include("*.yml")
+    include("*")
 
     into("src/main/resources")
     doFirst {

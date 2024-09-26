@@ -1,10 +1,13 @@
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
 plugins {
-    kotlin("jvm") version "2.0.20"
     kotlin("plugin.spring") version "1.9.25"
-    kotlin("plugin.lombok") version "2.0.20"
-    id("io.freefair.lombok") version "8.10"
     id("io.spring.dependency-management") version "1.1.6"
     id("org.springframework.boot") version "3.3.3"
+
+    // Lombok
+    kotlin("plugin.lombok") version "2.0.20"
+    id("io.freefair.lombok") version "8.10"
 }
 
 dependencies {
@@ -24,8 +27,8 @@ dependencies {
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.6")
 }
 
-tasks.withType<Jar> {
-    enabled = true
+tasks.withType<BootJar> {
+    enabled = false
 }
 
 tasks.register<Delete>("cleanResources") {
