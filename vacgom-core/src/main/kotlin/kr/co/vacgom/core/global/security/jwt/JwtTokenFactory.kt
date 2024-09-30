@@ -20,14 +20,14 @@ import javax.crypto.SecretKey
 @Component
 class JwtTokenFactory(
     @Value("\${jwt.key}")
-    private val rawSecretKey: String,
+    private val encodedSecretKey: String,
 
     @Value("\${jwt.validity.access-token}")
     private val accessTokenValidity: Long,
 
     private val memberService: MemberService
 ) {
-    private val decodedSecretKey: SecretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(rawSecretKey))
+    private val secretKey: SecretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(encodedSecretKey))
 
     fun generateAccessToken(
         member: Member
@@ -39,7 +39,7 @@ class JwtTokenFactory(
             .issuedAt(now)
             .claim(RegisteredClaimConstants.ID.subject, member.id)
             .claim(RegisteredClaimConstants.ROLE.subject, member.role)
-            .signWith(decodedSecretKey)
+            .signWith(secretKey)
             .expiration(expiration)
             .compact()
     }
@@ -67,10 +67,10 @@ class JwtTokenFactory(
 
     private fun getVerifiedTokenClaims(
         token: String
-    ): Claims {
-        return try {
+    ): Claims =
+        try {
             Jwts.parser()
-                .verifyWith(decodedSecretKey)
+                .verifyWith(secretKey)
                 .build()
                 .parseSignedClaims(token)
                 .payload
@@ -79,19 +79,17 @@ class JwtTokenFactory(
                 is SecurityException
                     -> BusinessException(AuthError.INVALID_JWT_SIGNATURE)
 
-                is MalformedJwtException
+                is MalformedJwtException, is ExpiredJwtException
                     -> BusinessException(AuthError.INVALID_JWT_TOKEN)
-
-                is ExpiredJwtException
-                    -> BusinessException(AuthError.EXPIRED_JWT_TOKEN)
 
                 is UnsupportedJwtException, is IllegalArgumentException
                     -> BusinessException(AuthError.UNSUPPORTED_JWT_TOKEN)
 
-                else -> BusinessException(AuthError.UNDEFINED_TOKEN_ERROR)
+                else
+                    -> BusinessException(AuthError.UNDEFINED_TOKEN_ERROR)
             }
         }
-    }
+
 
     private fun validateUserRole(role: String) {
         if (GrantedAuthorityRole.entries.toTypedArray().none { it.name == role }) {

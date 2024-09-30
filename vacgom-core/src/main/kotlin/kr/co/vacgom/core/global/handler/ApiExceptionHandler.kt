@@ -24,7 +24,7 @@ class ApiExceptionHandler(
     ): ResponseEntity<CommonErrorResponse> {
         val fieldError: FieldError = notValidException.bindingResult.fieldErrors
             .firstOrNull() ?: throw BusinessException(GlobalError.INVALID_REQUEST_PARAM)
-        val errorMessage = fieldError.defaultMessage ?: "Invalid input"
+        val errorMessage = fieldError.defaultMessage ?: GlobalError.INVALID_REQUEST_PARAM.message
 
         val errorResponse = CommonErrorResponse(
             GlobalError.INVALID_REQUEST_PARAM,
