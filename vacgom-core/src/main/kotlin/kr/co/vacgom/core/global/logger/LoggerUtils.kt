@@ -13,6 +13,6 @@ class LoggerUtils(
         errorEntity: ErrorEntity,
         errorMessage: String? = null
     ) {
-        logger.error("[${exception.javaClass.simpleName}] (${errorEntity.code} - ${errorEntity.message}) | \n{$errorMessage}")
+        logger.error("TRACE | ${errorEntity.code} - ${errorEntity.message} | $errorMessage")
     }
 }

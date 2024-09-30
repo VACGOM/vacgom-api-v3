@@ -7,28 +7,28 @@ import kr.co.vacgom.common.error.dto.CommonErrorResponse
 import kr.co.vacgom.core.global.logger.LoggerUtils
 import kr.co.vacgom.core.global.security.error.AuthError
 import org.springframework.http.MediaType
-import org.springframework.security.access.AccessDeniedException
-import org.springframework.security.web.access.AccessDeniedHandler
+import org.springframework.security.core.AuthenticationException
+import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.stereotype.Component
 import kotlin.text.Charsets.UTF_8
 
 @Component
-class ForbiddenHandler(
-    private val loggerUtils: LoggerUtils,
-    private val objectMapper: ObjectMapper
-) : AccessDeniedHandler {
-
-    override fun handle(
-        request: HttpServletRequest?,
+class UnauthorizedHandler(
+    private val objectMapper: ObjectMapper,
+    private val loggerUtils: LoggerUtils
+) : AuthenticationEntryPoint {
+    override fun commence(
+        request: HttpServletRequest,
         response: HttpServletResponse,
-        accessDeniedException: AccessDeniedException
+        authException: AuthenticationException
     ) {
         val errorEntity = AuthError.FORBIDDEN
+        val errorMessage = authException.localizedMessage
 
         loggerUtils.logErrorMessage(
-            exception = accessDeniedException,
+            exception = authException,
             errorEntity = errorEntity,
-            errorMessage = accessDeniedException.localizedMessage
+            errorMessage = errorMessage
         )
 
         val errorResponse = CommonErrorResponse(errorEntity)

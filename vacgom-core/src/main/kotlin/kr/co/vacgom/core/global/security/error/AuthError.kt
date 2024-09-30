@@ -18,6 +18,7 @@ enum class AuthError(
     INVALID_USER_ID("요청된 토큰으로 유저를 찾을 수 없습니다.", HttpStatus.BAD_REQUEST.value(), "ATH_008"),
 
     // HttpStatus Response
-    FORBIDDEN("요청이 제한되었습니다. 관리자에게 문의하세요.", HttpStatus.FORBIDDEN.value(), "ATH_403")
+    UNAUTHORIZED("해당 리소스에 접근할 권한이 없습니다", HttpStatus.UNAUTHORIZED.value(), "ATH_401"),
+    FORBIDDEN("요청이 제한된 리소스입니다.", HttpStatus.FORBIDDEN.value(), "ATH_403")
 }
 
