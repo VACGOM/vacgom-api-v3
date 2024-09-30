@@ -1,7 +1,6 @@
 package kr.co.vacgom.core.global.security.jwt
 
 import io.jsonwebtoken.*
-import io.jsonwebtoken.io.Decoders
 import io.jsonwebtoken.security.Keys
 import kr.co.vacgom.common.error.exception.BusinessException
 import kr.co.vacgom.core.global.security.error.AuthError
@@ -27,7 +26,7 @@ class JwtTokenFactory(
 
     private val memberService: MemberService
 ) {
-    private val secretKey: SecretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(encodedSecretKey))
+    private val secretKey: SecretKey = Keys.hmacShaKeyFor(encodedSecretKey.toByteArray())
 
     fun generateAccessToken(
         member: Member

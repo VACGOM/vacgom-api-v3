@@ -15,6 +15,9 @@ enum class AuthError(
     UNSUPPORTED_PROVIDER("지원하지 않는 로그인 클라이언트입니다.", HttpStatus.BAD_REQUEST.value(), "ATH_005"),
     UNDEFINED_TOKEN_ERROR("정의되지 않은 JWT 로그인 오류가 발생했습니다.", HttpStatus.BAD_REQUEST.value(), "ATH_006"),
     UNKNOWN_CLAIM_CONSTANTS("유효하지 않은 JWT Claim이 요청되었습니다.", HttpStatus.BAD_REQUEST.value(), "ATH_007"),
-    INVALID_USER_ID("요청된 토큰으로 유저를 찾을 수 없습니다.", HttpStatus.BAD_REQUEST.value(), "ATH_008");
+    INVALID_USER_ID("요청된 토큰으로 유저를 찾을 수 없습니다.", HttpStatus.BAD_REQUEST.value(), "ATH_008"),
+
+    // HttpStatus Response
+    FORBIDDEN("요청이 제한되었습니다. 관리자에게 문의하세요.", HttpStatus.FORBIDDEN.value(), "ATH_403")
 }
 
