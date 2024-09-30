@@ -2,8 +2,7 @@ package kr.co.vacgom.core.global.security.config
 
 import kr.co.vacgom.core.global.security.constants.CorsAllowedHeaders
 import kr.co.vacgom.core.global.security.constants.CorsAllowedOrigins
-import kr.co.vacgom.core.global.security.handler.ForbiddenHandler
-import kr.co.vacgom.core.global.security.handler.UnauthorizedHandler
+import kr.co.vacgom.core.global.security.handler.AuthenticationExceptionHandler
 import kr.co.vacgom.core.global.security.jwt.JwtTokenFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -11,19 +10,20 @@ import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.core.userdetails.UserDetailsService
+import org.springframework.security.provisioning.InMemoryUserDetailsManager
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
+
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
     private val jwtTokenFactory: JwtTokenFactory,
-    private val forbiddenHandler: ForbiddenHandler,
-    private val unauthorizedHandler: UnauthorizedHandler
+    private val authenticationExceptionHandler: AuthenticationExceptionHandler
 ) {
-
     @Bean
     fun authFilterChain(
         httpSecurity: HttpSecurity
@@ -34,34 +34,37 @@ class SecurityConfig(
             .also(::applyHttpRequestMatchers)
             .build()
 
+
+    @Bean
+    fun userDetailsService(): UserDetailsService = InMemoryUserDetailsManager()
+
     private fun disableDefaultSecurityConfiguration(
-        httpSecurity: HttpSecurity
+        http: HttpSecurity
     ): HttpSecurity =
-        httpSecurity
+        http
             .csrf { it.disable() }
             .formLogin { it.disable() }
             .logout { it.disable() }
             .httpBasic { it.disable() }
 
     private fun enableCoreSecurityConfiguration(
-        httpSecurity: HttpSecurity
+        http: HttpSecurity
     ): HttpSecurity =
-        httpSecurity
+        http
             .cors { corsConfiguration() }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
             .exceptionHandling {
-                it.accessDeniedHandler(forbiddenHandler)
-                it.authenticationEntryPoint(unauthorizedHandler)
+                it.accessDeniedHandler(authenticationExceptionHandler.forbiddenHandler())
+                it.authenticationEntryPoint(authenticationExceptionHandler.unauthorizedHandler())
             }
 
     private fun applyHttpRequestMatchers(
-        httpSecurity: HttpSecurity
-    ) {
-        httpSecurity.authorizeHttpRequests {
+        http: HttpSecurity
+    ): HttpSecurity =
+        http.authorizeHttpRequests {
             it.requestMatchers(HttpMethod.GET, "/").anonymous()
             it.anyRequest().denyAll()
         }
-    }
 
     private fun corsConfiguration(): CorsConfigurationSource {
         val cors = CorsConfiguration()

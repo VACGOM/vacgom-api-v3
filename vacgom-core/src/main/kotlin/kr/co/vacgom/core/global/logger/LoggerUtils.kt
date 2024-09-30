@@ -8,11 +8,20 @@ import org.springframework.stereotype.Component
 class LoggerUtils(
     private val logger: Logger
 ) {
-    fun logErrorMessage(
+    fun logErrorResponse(
         exception: Exception,
-        errorEntity: ErrorEntity,
-        errorMessage: String? = null
+        error: ErrorEntity,
+        traceMessage: String? = null
     ) {
-        logger.error("TRACE | ${errorEntity.code} - ${errorEntity.message} | $errorMessage")
+        when (traceMessage) {
+            null -> logger.error(TRACE, error.code, error.httpStatus, error.message)
+            else -> logger.error(TRACE_WITH_MSG, error.code, error.httpStatus, error.message, traceMessage)
+        }
+    }
+
+    private companion object {
+        const val REQUEST = "REQ | {}: {} ({}) - {}"
+        const val TRACE = "ERR | {} ({}) - {}"
+        const val TRACE_WITH_MSG = "$TRACE | {}"
     }
 }
