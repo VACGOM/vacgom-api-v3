@@ -1,6 +1,6 @@
 package kr.co.vacgom.api.member
 
-import kr.co.vacgom.core.global.security.jwt.JwtTokenFactory
+import kr.co.vacgom.global.security.jwt.JwtTokenFactory
 import org.jetbrains.annotations.NotNull
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
