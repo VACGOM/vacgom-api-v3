@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
 @RestControllerAdvice
-class BusinessExceptionHandler(
+class CommonExceptionHandler(
     private val loggerUtils: LoggerUtils
 ) {
     @ExceptionHandler(BusinessException::class)

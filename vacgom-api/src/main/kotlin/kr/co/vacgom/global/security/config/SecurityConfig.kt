@@ -64,7 +64,7 @@ class SecurityConfig(
     ): HttpSecurity =
         http.authorizeHttpRequests {
             it.requestMatchers(HttpMethod.GET, "/").anonymous()
-            it.anyRequest().denyAll()
+            it.anyRequest().permitAll()
         }
 
     private fun corsConfiguration(): CorsConfigurationSource {

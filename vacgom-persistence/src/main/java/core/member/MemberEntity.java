@@ -1,10 +1,10 @@
-package core.member.persistence;
+package core.member;
 
-import core.global.persistence.BaseEntity;
-import core.member.persistence.constants.GrantedAuthorityRole;
+import core.global.BaseEntity;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import kr.co.vacgom.core.member.constants.GrantedAuthorityRole;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Table(name = "TB_MEMBER")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member extends BaseEntity {
+public class MemberEntity extends BaseEntity {
 
     @Id
     @Nullable
@@ -21,10 +21,8 @@ public class Member extends BaseEntity {
     @Column(name = "member_id")
     private Long id;
 
+
     @Nonnull
     @Enumerated(EnumType.STRING)
     private GrantedAuthorityRole role;
-
-    @Nullable
-    private Boolean isMaster;
 }

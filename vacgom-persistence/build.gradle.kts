@@ -12,6 +12,7 @@ plugins {
 
 dependencies {
     implementation(project(":vacgom-common"))
+    implementation(project(":vacgom-core"))
 
     implementation("org.postgresql:postgresql")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
