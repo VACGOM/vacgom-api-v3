@@ -1,8 +1,12 @@
 package kr.co.vacgom.global.security.jwt
 
+import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
+import kr.co.vacgom.core.member.constants.GrantedAuthorityRole
+import kr.co.vacgom.global.security.jwt.constants.RegisteredClaimConstants
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
+import java.util.*
 import javax.crypto.SecretKey
 
 @Component
@@ -15,20 +19,18 @@ class JwtTokenFactory(
 ) {
     private val secretKey: SecretKey = Keys.hmacShaKeyFor(encodedSecretKey.toByteArray())
 
-//    fun generateAccessToken(
-//        Member
-//    ): String {
-//        val now = Date()
-//        val expiration = Date(Date().time + accessTokenValidity)
-//
-//        return Jwts.builder()
-//            .issuedAt(now)
-//            .claim(RegisteredClaimConstants.ID.subject, member.id)
-//            .claim(RegisteredClaimConstants.ROLE.subject, member.role)
-//            .signWith(secretKey)
-//            .expiration(expiration)
-//            .compact()
-//    }
+    fun generateAccessToken(): String {
+        val now = Date()
+        val expiration = Date(Date().time + accessTokenValidity)
+
+        return Jwts.builder()
+            .issuedAt(now)
+            .claim(RegisteredClaimConstants.ID.subject, 1L)
+            .claim(RegisteredClaimConstants.ROLE.subject, GrantedAuthorityRole.USER)
+            .signWith(secretKey)
+            .expiration(expiration)
+            .compact()
+    }
 //
 //    fun getValidUserAuthentication(
 //        token: String
