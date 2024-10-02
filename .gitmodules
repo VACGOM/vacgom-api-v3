@@ -6,4 +6,4 @@
 	url = git@github.com:VACGOM/vacgom-api-v3-api-config.git
 [submodule "vacgom-infra/INFRA-CONFIG"]
 	path = vacgom-infra/INFRA-CONFIG
-	url = git@github.com:VACGOM/vacgom-api-v3-persistence-config.git
+	url = git@github.com:VACGOM/vacgom-api-v3-infra-config.git
