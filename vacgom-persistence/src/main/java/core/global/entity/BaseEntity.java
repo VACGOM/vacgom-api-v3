@@ -1,4 +1,4 @@
-package core.global;
+package core.global.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;

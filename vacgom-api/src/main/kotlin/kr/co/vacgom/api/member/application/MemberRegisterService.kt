@@ -1,15 +1,14 @@
 package kr.co.vacgom.api.member.application
 
-import kr.co.vacgom.api.member.application.dto.Member
-import kr.co.vacgom.global.security.jwt.JwtTokenFactory
+import kr.co.vacgom.global.security.jwt.JwtProvider
 import org.springframework.stereotype.Service
 
 @Service
 class MemberCreateService(
-    private val jwtTokenFactory: JwtTokenFactory
+    private val jwtProvider: JwtProvider
 ) {
 
-    fun createMember(
-        request: Member.Request
-    ) = Member.Response.Success(jwtTokenFactory.generateAccessToken())
+//    fun createMember(
+//        request: Member.Request
+//    ) = Member.Response(jwtProvider.issueToken(JwtType.ACCESS))
 }

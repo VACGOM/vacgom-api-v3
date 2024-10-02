@@ -7,6 +7,7 @@ plugins {
 dependencies {
     implementation(project(":vacgom-core"))
     implementation(project(":vacgom-common"))
+    implementation(project(":vacgom-persistence"))
 
     // Spring Boot
     implementation("org.springframework.boot:spring-boot-starter-web")

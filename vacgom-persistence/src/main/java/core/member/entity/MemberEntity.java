@@ -1,6 +1,6 @@
-package core.member;
+package core.member.entity;
 
-import core.global.BaseEntity;
+import core.global.entity.BaseEntity;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
@@ -8,6 +8,8 @@ import kr.co.vacgom.core.member.constants.GrantedAuthorityRole;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -19,10 +21,13 @@ public class MemberEntity extends BaseEntity {
     @Nullable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
-    private Long id;
-
+    private UUID id;
 
     @Nonnull
     @Enumerated(EnumType.STRING)
     private GrantedAuthorityRole role;
+
+    @Nonnull
+    private String nickname;
+
 }

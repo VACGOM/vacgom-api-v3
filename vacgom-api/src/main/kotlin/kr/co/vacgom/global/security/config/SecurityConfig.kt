@@ -4,7 +4,7 @@ package kr.co.vacgom.global.security.config
 import kr.co.vacgom.global.security.constants.CorsAllowedHeaders
 import kr.co.vacgom.global.security.constants.CorsAllowedOrigins
 import kr.co.vacgom.global.security.handler.AuthenticationExceptionHandler
-import kr.co.vacgom.global.security.jwt.JwtTokenFactory
+import kr.co.vacgom.global.security.jwt.JwtProvider
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -22,7 +22,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-    private val jwtTokenFactory: JwtTokenFactory,
+    private val jwtProvider: JwtProvider,
     private val authenticationExceptionHandler: AuthenticationExceptionHandler
 ) {
     @Bean
